@@ -1,32 +1,22 @@
-package main.java.com.example.demo.models;
+package com.example.demo.models;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 public class Producto {
 
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Long idProducto;
 
-    @Column
-    @Getter
-    @Setter
+    @Column(nullable = false)
+    @Getter @Setter
     private String nombre;
 
-    @Column
-    @Getter
-    @Setter
+    @Column(nullable = false)
+    @Getter @Setter
     private Double precio;
-
 }

@@ -5,20 +5,26 @@ docker compose -f .\compose-database-postgres.yml up -d
 
 
 Postgres
+------------------------------------
+-- Crear la base de datos
+CREATE DATABASE db_producto;
 
-CREATE DATABASE db_producto
-  OWNER postgres
-  ENCODING 'UTF8';
+-- Conectarte a la base
+\c db_producto;
 
-
+-- Crear tabla producto
 CREATE TABLE producto (
     idProducto SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     precio NUMERIC(10,2) NOT NULL
 );
 
+-- Consultar tabla
+SELECT * FROM producto;
 
 mysql
+------------------------------------
+
 create database db_operacion
 use db_operacion
 
@@ -26,6 +32,11 @@ CREATE TABLE operacion (
     idOperacion INT AUTO_INCREMENT PRIMARY KEY,
     idCliente INT NOT NULL,
     tipoOperacion VARCHAR(50) NOT NULL,
-    total DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL
 
 );
+
+las direciones funcionan: 
+
+http://localhost:86/api/auth/
+

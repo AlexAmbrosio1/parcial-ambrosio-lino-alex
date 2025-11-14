@@ -1,36 +1,28 @@
 package com.example.demo.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "operacion")     // 👈 IMPORTANTE
 public class Operacion {
 
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
+    @Column(name = "idoperacion")
+    @Getter @Setter
     private Long idoperacion;
- 
-    @Column
-    @Getter 
-    @Setter
+
+    @Column(name = "idcliente")
+    @Getter @Setter
     private Long idcliente;
 
-    @Column
-    @Getter 
-    @Setter
+    @Column(name = "tipooperacion")
+    @Getter @Setter
     private String tipooperacion;
-    
-    @Column
-    @Getter 
-    @Setter
-    private Double total;
 
+    @Column(name = "total")
+    @Getter @Setter
+    private Double total;
 }

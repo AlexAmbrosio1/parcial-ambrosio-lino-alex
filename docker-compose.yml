@@ -1,0 +1,98 @@
+version: "3.9"
+
+services:
+
+  # ============================
+  #     MONGO (msusuario)
+  # ============================
+  mongo-usuarios:
+    image: mongo:7
+    container_name: mongo-usuarios
+    ports:
+      - "27019:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: Unu#2025
+      MONGO_INITDB_DATABASE: db_usuario
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  msusuario:
+    build: ./msusuario
+    container_name: msusuario
+    ports:
+      - "85:85"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://admin:Unu#2025@mongo-usuarios:27017/db_usuario?authSource=admin
+    depends_on:
+      - mongo-usuarios
+    restart: always
+
+  # ============================
+  #     POSTGRES (msproducto)
+  # ============================
+  postgres-productos:
+    image: postgres:16
+    container_name: postgres-productos
+    ports:
+      - "5439:5432"
+    environment:
+      POSTGRES_DB: db_producto
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Unu#2025
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  msproducto:
+    build: ./msproducto
+    container_name: msproducto
+    ports:
+      - "86:86"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-productos:5432/db_producto
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Unu#2025
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres-productos
+    restart: always
+
+  # ============================
+  #     MYSQL (msoperacion)
+  # ============================
+  mysql-operacion:
+    image: mysql:8
+    container_name: mysql-operacion
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Unu#2025
+      MYSQL_DATABASE: db_operacion
+    
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  msoperacion:
+    build: ./msoperacion
+    container_name: msoperacion
+    ports:
+      - "87:87"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-operacion:3306/db_operacion
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Unu#2025
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - mysql-operacion
+    restart: always
+
+# ============================
+#         VOLUMENES
+# ============================
+volumes:
+  mongo_data:
+  postgres_data:
+  mysql_data:
