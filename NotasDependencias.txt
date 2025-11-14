@@ -1,0 +1,31 @@
+dependencias:
+docker compose -f .\compose-database-mongodb.yml up -d
+docker compose -f .\compose-database-mysql.yml up -d
+docker compose -f .\compose-database-postgres.yml up -d
+
+
+Postgres
+
+CREATE DATABASE db_producto
+  OWNER postgres
+  ENCODING 'UTF8';
+
+
+CREATE TABLE producto (
+    idProducto SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    precio NUMERIC(10,2) NOT NULL
+);
+
+
+mysql
+create database db_operacion
+use db_operacion
+
+CREATE TABLE operacion (
+    idOperacion INT AUTO_INCREMENT PRIMARY KEY,
+    idCliente INT NOT NULL,
+    tipoOperacion VARCHAR(50) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+
+);
